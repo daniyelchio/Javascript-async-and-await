@@ -17,6 +17,23 @@ body {
     color:#4d4e53;
 }
 
+#navbar ul {
+    height: 88%;
+    padding: 0;
+}
+
+#navbar li {
+    border-top: 1px solid;
+    list-style: none;
+}
+
+#navbar a {
+    display: block;
+    padding: 10px 30px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 header {
     color: black;
     margin: 10px;
@@ -45,23 +62,6 @@ header {
     font-weight:500;
 }
 
-#navbar ul {
-    height: 88%;
-    padding: 0;
-}
-
-#navbar li {
-    border-top: 1px solid;
-    list-style: none;
-}
-
-#navbar a {
-    display: block;
-    padding: 10px 30px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 #main-doc{
     position: absolute;
     margin-left: 250px;
@@ -86,4 +86,55 @@ code {
 
 .inlineCode{
     display: inline;
+}
+
+.menu {
+    display: none;
+}
+
+.line {
+    width: 20px;
+    height: 3px;
+    background-color: black;
+    margin-bottom: 4px;
+}
+                  
+@media screen and (max-width: 1000px){
+    #navbar {
+        display: block;
+        position: fixed;
+        text-align: center;
+        width: 90%;
+        z-index: 2;
+    }
+
+    #navbar header {
+        background-color: whitesmoke;
+        border: 1px solid grey;
+    }
+
+    #navList{
+        display: none;
+    }
+
+    .nav-link {
+        display: block;
+        text-align: center;
+    }
+    
+    #main-doc {
+        position: absolute;
+        margin-top: 100px;
+        margin-left: 0;
+    }
+
+    .menu {
+        display: block;
+        position: absolute;
+        right: 40px;
+        top: 50px
+    }
+    .active {
+        display: block;
+    }
 }

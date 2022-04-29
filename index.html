@@ -14,14 +14,18 @@
     <header>
       <h2>Navigation</h2>
     </header>
-    <ul>
+    <ul id="navList">
       <li><a href="#promises" class="nav-link">Promise</a></li>
       <li><a href="#async" class="nav-link">Async</a></li>
       <li><a href="#await" class="nav-link">Await</a></li>
       <li><a href="#error_handling" class="nav-link">Error Handling</a></li>
       <li><a href="#summary" class="nav-link">Summary</a></li>
     </ul>
-    </li>
+    <div class="menu" id="toggle">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
   </nav>
 
   <main id="main-doc">
@@ -174,7 +178,8 @@
             statements
          }
         </code>
-        <p>This makes the function always return a promise. <i>name</i> is the function name, <i>param</i> is the name of the argument, and <i>statement</i> is the body of the function. Async functions can have 0 or more await expressions. </p>
+        <p>This makes the function always return a promise. <i>name</i> is the function name, <i>param</i> is the name of the argument, and <i>statement</i> is the body of the
+          function. Async functions can have 0 or more await expressions. </p>
 
       </article>
     </section>
@@ -232,11 +237,11 @@
       <header>
         <h2>Error Handling</h2>
       </header>
-        <article>
-          <p>If the promise is resolved, the await promise returns the expected result. However in the case of a rejection, it throws the error.</p>
-          <p>We can use a <code class="inlineCode">try..catch</code> to catach that error as if it were a <code class="inlineCode">throw</code> expression.</p>
-          <h3>Example of using try catch:</h3>
-          <code>
+      <article>
+        <p>If the promise is resolved, the await promise returns the expected result. However in the case of a rejection, it throws the error.</p>
+        <p>We can use a <code class="inlineCode">try..catch</code> to catach that error as if it were a <code class="inlineCode">throw</code> expression.</p>
+        <h3>Example of using try catch:</h3>
+        <code>
             async function f() {
 
               try {
@@ -250,27 +255,39 @@
             
             f();
           </code>
-        </article>
+      </article>
     </section>
 
     <section class="main-section" id="summary">
       <header>
         <h2>Summary</h2>
       </header>
-        <article>
-          <p>The <code class="inlineCode">async</code> keyword has two effects before a function:
-          <ol>
-            <li>Makes it always return a promise.</li>
-            <li>Allows the use of <code class="inlineCode">await</code> inside of it.</li>
-          </ol></p>
-          <p>The <code class="inlineCode">await</code> keyword before a promise makes JavaScript wait for that promise and then:
-          <ol>
-            <li>If there's an error, an exception similar to a <code class="inlineCode">throw error</code> is genereated at that place.</li>
-            <li>If not, then the result is returned.</li>
-          </ol></p>
-          <p>Together, async and await are good tools to write asynchronous code that is easy to read, write, and understand. Although using async/await does not need to use <code class="inlineCode">promise.then/catch</code>, they are still based on promises.</p>
-        </article>
+      <article>
+        <p>The <code class="inlineCode">async</code> keyword has two effects before a function:
+        <ol>
+          <li>Makes it always return a promise.</li>
+          <li>Allows the use of <code class="inlineCode">await</code> inside of it.</li>
+        </ol>
+        </p>
+        <p>The <code class="inlineCode">await</code> keyword before a promise makes JavaScript wait for that promise and then:
+        <ol>
+          <li>If there's an error, an exception similar to a <code class="inlineCode">throw error</code> is genereated at that place.</li>
+          <li>If not, then the result is returned.</li>
+        </ol>
+        </p>
+        <p>Together, async and await are good tools to write asynchronous code that is easy to read, write, and understand. Although using async/await does not need to use <code
+            class="inlineCode">promise.then/catch</code>, they are still based on promises.</p>
+      </article>
     </section>
 </body>
+
+<script>
+  const toggleButton = document.getElementById('toggle');
+  const navList = document.getElementById('navList')
+
+  toggleButton.addEventListener('click', () => {
+    navList.classList.toggle('active');
+  })
+</script>
 
 </html>
