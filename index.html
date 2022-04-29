@@ -2,40 +2,42 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript Async and Await Function</title>
-    <link rel="stylesheet" href="app.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Javascript Async and Await Function</title>
+  <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
-    <nav id="navbar">
-        <header>
-            <h2>Navigation</h2>
-        </header>
-        <ul>
-            <li><a href="#promises" class="nav-link">Promise</a></li>
-            <li><a href="#async" class="nav-link">Async</a></li>
-            <li><a href="#await" class="nav-link">Await</a></li>
-            <li><a href="#error_handling" class="nav-link">Error Handling</a></li>
-            <li><a href="#summary" class="nav-link">Summary</a></li>
-        </ul>
-        </li>
-    </nav>
+  <nav id="navbar">
+    <header>
+      <h2>Navigation</h2>
+    </header>
+    <ul>
+      <li><a href="#promises" class="nav-link">Promise</a></li>
+      <li><a href="#async" class="nav-link">Async</a></li>
+      <li><a href="#await" class="nav-link">Await</a></li>
+      <li><a href="#error_handling" class="nav-link">Error Handling</a></li>
+      <li><a href="#summary" class="nav-link">Summary</a></li>
+    </ul>
+    </li>
+  </nav>
 
-    <main id="main-doc">
-        <section class="main-section" id="promises">
-            <header>
-                <h1>Promises</h1>
-            </header>
-            <article>
-                <p>
-                    A <b>promise</b> object is the eventual completion or failure of an asynchronous operation and its resulting value. Compared to a callback approach where it is
-                    passed into a function and then and then is called upon completion, a promise attaches callbacks on the return promise object. Promises alleviate the issue of
-                    <i>callback hell</i> where code is unmanageable and hard to read with its many nests.</p>
-                    <h3>Example of callback hell:</h3>
-                    <code>
+  <main id="main-doc">
+    <h1>Javascript Async and Await Functions</h1>
+    <section class="main-section" id="promises">
+      <header>
+        <h2>Promises</h2>
+      </header>
+      <article>
+        <p>
+          A <b>promise</b> object is the eventual completion or failure of an asynchronous operation and its resulting value. Compared to a callback approach where it is
+          passed into a function and then and then is called upon completion, a promise attaches callbacks on the return promise object. Promises alleviate the issue of
+          <i>callback hell</i> where code is unmanageable and hard to read with its many nests.
+        </p>
+        <h3>Example of callback hell:</h3>
+        <code>
                         <b>//Callback hell</b>
                         function getFrogsWithVitalSigns(params, callback) {
                         let frogIds, frogsListWithVitalSignsData
@@ -85,31 +87,190 @@
                         })
                         .catch((error) => {
                           console.error(error)
-                        })</code>
+                        })
+                      </code>
+        </p>
 
-                </p>
-            </article>
-        </section>
-        <section class="main-section" id="async">
-            <header>
-                <h1>Async<h1>
-            </header>
-        </section>
-        <section class="main-section" id="await">
-            <header>
-                <h1>Await</h1>
-            </header>
-        </section>
-        <section class="main-section" id="error_handling">
-            <header>
-                <h1>Error Handling</h1>
-            </header>
-        </section>
-        <section class="main-section" id="summary">
-            <header>
-                <h1>Summary</h1>
-            </header>
-        </section>
+        <p>
+        <h3>Above code but using promises:</h3>
+        <code>
+                        function getFrogsWithVitalSigns(params, callback) {
+                          let frogIds, frogsListWithVitalSignsData
+                          
+                          api
+                            .fetchFrogs(params)
+                            .then((frogs) => {
+                              frogIds = frogs.map(({ id }) => id)
+                              // The list of frogs did not include their health information, so lets fetch that now
+                              return api.fetchFrogsVitalSigns(frogIds)
+                            })
+                            .then((frogsListWithEncryptedVitalSigns) => {
+                              // The list of frogs health info is encrypted. Our friend texted us the secret key to use in this step. This is used to decrypt the list of frogs encrypted health information
+                              return api.decryptFrogsListVitalSigns(
+                                frogsListWithEncryptedVitalSigns,
+                                'pepsi',
+                              )
+                            })
+                            .then((data) => {
+                              if (Array.isArray(data)) {
+                                frogsListWithVitalSignsData = data
+                              } else {
+                                frogsListWithVitalSignsData = data.map(
+                                  ({ vital_signs }) => vital_signs,
+                                )
+                                console.log(frogsListWithVitalSignsData)
+                              }
+                            })
+                            .catch((error) => {
+                              console.error(error)
+                            })
+                          })
+                        }
+                        const frogsWithVitalSigns = getFrogsWithVitalSigns({
+                          offset: 50,
+                        })
+                          .then((result) => {
+                            console.log(result)
+                          })
+                          .catch((error) => {
+                            console.error(error)
+                          })
+                        </code>
+        </p>
+        <p>As you can see, although both codes run the same thing, using promises makes the code more readable and understandable.</p>
+        <p>Promises have 3 states:
+        <ul>
+          <li><i>pending</i>: initial state which is neither fulfilled nor rejected</li>
+          <li><i>fulfilled</i>: operation was sucessful</li>
+          <li><i>rejected</i>: operation failed</li>
+        </ul>
+        </p>
+        <h3>Promise Syntax:</h3>
+        <code>
+                  let myPromise = new Promise(function(myResolve, myReject) {
+                    // "Producing Code" (May take some time)
+                    
+                      myResolve(); // when successful
+                      myReject();  // when error
+                    });
+                    
+                    // "Consuming Code" (Must wait for a fulfilled Promise)
+                    myPromise.then(
+                      function(value) { /* code if successful */ },
+                      function(error) { /* code if some error */ }
+                    );
+                  </code>
+      </article>
+    </section>
+
+    <section class="main-section" id="async">
+      <header>
+        <h2>Async<h2>
+      </header>
+      <article>
+        <p>The <b>async</b> keyword can be placed before a function like this:</p>
+        <code>
+          async function name([param[, param[, ...param]]]) {
+            statements
+         }
+        </code>
+        <p>This makes the function always return a promise. <i>name</i> is the function name, <i>param</i> is the name of the argument, and <i>statement</i> is the body of the function. Async functions can have 0 or more await expressions. </p>
+
+      </article>
+    </section>
+
+    <section class="main-section" id="await">
+      <header>
+        <h2>Await</h2>
+      </header>
+      <article>
+        <p>The <b>await</b> keyword only works inside async functions. It makes JavaScript wait until that promise is settled then returns its result.</p>
+        <h3>Example of using <i>await</i> inside a promise:</h3>
+        <code>
+          async function f() {
+
+            let promise = new Promise((resolve, reject) => {
+              setTimeout(() => resolve("done!"), 1000)
+            });
+          
+            let result = await promise; // wait until the promise resolves (*)
+          
+            alert(result); // "done!"
+          }
+          
+          f();
+        </code>
+        <p>Using await in a non-async function throws a syntax error.</p>
+        <p>Await allows thenable objects to be used (called using the <code class="inlineCode">then</code> method).</p>
+        <h3>Example using then with await:</h3>
+        <code>
+          class Thenable {
+            constructor(num) {
+              this.num = num;
+            }
+            then(resolve, reject) {
+              alert(resolve);
+              // resolve with this.num*2 after 1000ms
+              setTimeout(() => resolve(this.num * 2), 1000); // (*)
+            }
+          }
+          
+          async function f() {
+            // waits for 1 second, then result becomes 2
+            let result = await new Thenable(1);
+            alert(result);
+          }
+          
+          f();
+        </code>
+        <p>If the value is not a promise, await converts the value to a resolved promise and waits.</p>
+        <p>If the promise is rejected, the rejected value is thrown.</p>
+      </article>
+    </section>
+
+    <section class="main-section" id="error_handling">
+      <header>
+        <h2>Error Handling</h2>
+      </header>
+        <article>
+          <p>If the promise is resolved, the await promise returns the expected result. However in the case of a rejection, it throws the error.</p>
+          <p>We can use a <code class="inlineCode">try..catch</code> to catach that error as if it were a <code class="inlineCode">throw</code> expression.</p>
+          <h3>Example of using try catch:</h3>
+          <code>
+            async function f() {
+
+              try {
+                let response = await fetch('/no-user-here');
+                let user = await response.json();
+              } catch(err) {
+                // catches errors both in fetch and response.json
+                alert(err);
+              }
+            }
+            
+            f();
+          </code>
+        </article>
+    </section>
+
+    <section class="main-section" id="summary">
+      <header>
+        <h2>Summary</h2>
+      </header>
+        <article>
+          <p>The <code class="inlineCode">async</code> keyword has two effects before a function:
+          <ol>
+            <li>Makes it always return a promise.</li>
+            <li>Allows the use of <code class="inlineCode">await</code> inside of it.</li>
+          </ol></p>
+          <p>The <code class="inlineCode">await</code> keyword before a promise makes JavaScript wait for that promise and then:
+          <ol>
+            <li>If there's an error, an exception similar to a <code class="inlineCode">throw error</code> is genereated at that place.</li>
+            <li>If not, then the result is returned.</li>
+          </ol></p>
+          <p>Together, async and await are good tools to write asynchronous code that is easy to read, write, and understand. Although using async/await does not need to use <code class="inlineCode">promise.then/catch</code>, they are still based on promises.</p>
+        </article>
+    </section>
 </body>
 
 </html>
