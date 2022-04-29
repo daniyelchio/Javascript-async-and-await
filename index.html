@@ -14,13 +14,14 @@
     <header>
       <h2>Navigation</h2>
     </header>
-    <ul id="navList">
+    <ul id="navList" class="nav-list">
       <li><a href="#promises" class="nav-link">Promise</a></li>
       <li><a href="#async" class="nav-link">Async</a></li>
       <li><a href="#await" class="nav-link">Await</a></li>
       <li><a href="#error_handling" class="nav-link">Error Handling</a></li>
       <li><a href="#summary" class="nav-link">Summary</a></li>
     </ul>
+
     <div class="menu" id="toggle">
       <div class="line"></div>
       <div class="line"></div>
@@ -281,13 +282,6 @@
     </section>
 </body>
 
-<script>
-  const toggleButton = document.getElementById('toggle');
-  const navList = document.getElementById('navList')
-
-  toggleButton.addEventListener('click', () => {
-    navList.classList.toggle('active');
-  })
-</script>
+<script src="app.js"></script>
 
 </html>

@@ -104,8 +104,9 @@ code {
         display: block;
         position: fixed;
         text-align: center;
-        width: 90%;
+        width: 94%;
         z-index: 2;
+        border: 0;
     }
 
     #navbar header {
@@ -113,8 +114,12 @@ code {
         border: 1px solid grey;
     }
 
-    #navList{
+    .nav-list{
         display: none;
+        background-color: whitesmoke;
+        z-index: 2;
+        border: 1px solid black;
+        margin-top: 0;
     }
 
     .nav-link {
